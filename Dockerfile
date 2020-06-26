@@ -11,7 +11,7 @@ RUN apt update && \
 
 COPY ./entrypoint.sh /app/
 RUN chmod +x /app/entrypoint.sh
-RUN /app/entrypoint.sh
+ENTRYPOINT ["/app/entrypoint.sh"]
 
 WORKDIR /app
 
