@@ -15,11 +15,19 @@ RUN git clone --recursive https://github.com/Mukosame/Zooming-Slow-Mo-CVPR-2020.
   cd /app && \
   wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1xeOoZclGeSI1urY6mVCcApfCqOPgxMBK' -O model.pth
 
-# 5. copy entrypoint.sh and set Docker ENTRYPOINT
-COPY ./entrypoint.sh /app/
-RUN chmod +x /app/entrypoint.sh
-ENTRYPOINT ["/app/entrypoint.sh"]
+# 5. install flask and expose 80 port
+RUN pip install flask
+EXPOSE 80
 
+#ENV CUDA_HOME /usr/local/cuda-10.0
+#ENV CUDNN_INCLUDE_DIR /usr/local/cuda-10.0/include
+#ENV CUDNN_LIB_DIR /usr/local/cuda-10.0/lib64
+
+# 6. copy entrypoint.sh and set Docker ENTRYPOINT
+COPY ./entrypoint.sh /app/
+COPY ./app.py /app/
+RUN chmod +x /app/entrypoint.sh && chmod +x /app/app.py
 WORKDIR /app
+ENTRYPOINT bash /app/entrypoint.sh
 
 CMD []
