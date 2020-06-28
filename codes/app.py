@@ -21,6 +21,7 @@ app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 5
 limiter = Limiter(app, default_limits=['1 per second'])
 
 input_file_path = "/app/codes/input.mp4"
+output_file_path = "/app/codes/output.mp4"
 
 @app.route('/transfer', methods=['POST'])
 def transfer():
@@ -35,7 +36,8 @@ def transfer():
     f = request.files['input-video']
     f.save(input_file_path)
     
-    print("3")
+    print("3 - clean")
+    os.remove(output_file_path)
     
     output_video = zsm(input_file_path)
     
