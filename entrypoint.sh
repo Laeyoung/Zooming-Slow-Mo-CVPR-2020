@@ -9,5 +9,5 @@ cd /app/codes/models/modules/DCNv2
 bash make.sh
 
 echo '- Run app.py'
-cd /app
-python codes/app.py
+cd /app/codes
+python app.py
