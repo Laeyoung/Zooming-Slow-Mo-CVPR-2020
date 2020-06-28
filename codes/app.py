@@ -24,17 +24,24 @@ input_file_path = "/app/codes/input.mp4"
 
 @app.route('/transfer', methods=['POST'])
 def transfer():
+  print("1")
 
   if not request.files.get('input-video'):
     return {'error': 'must have a input video file'}, 400
-
+  
+  print("2")
+  
   try:
     f = request.files['input-video']
     f.save(input_file_path)
     
+    print("3")
+    
     output_video = zsm(input_file_path)
+    
+    print("4: " + output_video)
 
-    return send_file(output_video, mimetype='video/mp4')
+    return send_file("/app/codes/" + output_video, mimetype='video/mp4')
   except Exception:
     return {'error': 'can not load your image files. check your image files'}, 400
 
