@@ -50,7 +50,7 @@ def transfer():
     output_video = zsm(input_file_path)
     
     print("4: Done")
-    return send_file("/app/codes/" + output_video, mimetype='video/mp4')
+    return send_file("/app/codes/" + output_video, mimetype='video/mp4', as_attachment=True)
   except Exception:
     return {'error': 'can not load your image files. check your image files'}, 400
 
