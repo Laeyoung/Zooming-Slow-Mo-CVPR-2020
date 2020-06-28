@@ -14,8 +14,8 @@ import models.modules.Sakuya_arch as Sakuya_arch
 import argparse
 from shutil import rmtree
 
-def zsm(input):
-    output = "output.mp4"
+def zsm(input_file):
+    output_file = "output.mp4"
     scale = 4
     N_ot = 3 # args.N_out
     N_in = 1 + N_ot//2
@@ -26,11 +26,11 @@ def zsm(input):
     model = Sakuya_arch.LunaTokis(64, N_ot, 8, 5, 40)
 
     #### extract the input video to temporary folder
-    save_folder = osp.join(osp.dirname(output), '.delme')
-    save_out_folder = osp.join(osp.dirname(output), '.hr_delme')
+    save_folder = osp.join(osp.dirname(output_file), '.delme')
+    save_out_folder = osp.join(osp.dirname(output_file), '.hr_delme')
     util.mkdirs(save_folder)
     util.mkdirs(save_out_folder)
-    error = util.extract_frames("", input, save_folder)
+    error = util.extract_frames("", input_file, save_folder)
     if error:
         print(error)
         exit(1)
@@ -84,13 +84,13 @@ def zsm(input):
 
     # now turn output images to video
     # generate mp4
-    util.create_video("", save_out_folder, output, 24)
+    util.create_video("", save_out_folder, output_file, 24)
 
     # remove tmp folder    
     rmtree(save_folder)
     rmtree(save_out_folder)
     
-    return output
+    return output_file
     
     #exit(0)
 
