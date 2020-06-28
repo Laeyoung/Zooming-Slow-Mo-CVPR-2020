@@ -16,9 +16,11 @@ EXPOSE 80
 RUN mkdir /app
 WORKDIR /app
 
-# 4. copy codes and download pre-trained model
-COPY . .
+# 4. download pre-trained model
 RUN wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1xeOoZclGeSI1urY6mVCcApfCqOPgxMBK' -O model.pth
+
+# 5. copy codes
+COPY . .
 
 #ENV CUDA_HOME /usr/local/cuda-10.0
 #ENV CUDNN_INCLUDE_DIR /usr/local/cuda-10.0/include
