@@ -26,27 +26,25 @@ output_file_path = "/app/codes/output.mp4"
 
 @app.route('/transfer', methods=['POST'])
 def transfer():
-  print("1")
+  print("1 - /transfer API called.")
 
   if not request.files.get('input-video'):
     return {'error': 'must have a input video file'}, 400
-  
-  print("2")
   
   try:
     f = request.files['input-video']
     f.save(input_file_path)
     
-    print("3 - clean")
+    print("2 - remove old output file")
     if os.path.exists(output_file_path):
       os.remove(output_file_path)
     else:
       print("Can not delete the file as it doesn't exists")
     
+    print("3: Run zooming-slow-mo")
     output_video = zsm(input_file_path)
     
-    print("4: " + output_video)
-
+    print("4: Done")
     return send_file("/app/codes/" + output_video, mimetype='video/mp4')
   except Exception:
     return {'error': 'can not load your image files. check your image files'}, 400
