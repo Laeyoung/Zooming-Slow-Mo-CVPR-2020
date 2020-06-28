@@ -22,6 +22,7 @@ app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 5
 limiter = Limiter(app, default_limits=['1 per second'])
 
 input_file_path = "/app/codes/input.mp4"
+crop_file_path = "/app/codes/crop.mp4"
 output_file_path = "/app/codes/output.mp4"
 
 @app.route('/transfer', methods=['POST'])
@@ -34,6 +35,9 @@ def transfer():
   try:
     f = request.files['input-video']
     f.save(input_file_path)
+    
+    print("2 - resize and crop video (360p / 2 secs")
+    os.system('{} -y -i {} -vf scale=360:-1 -ss 00:00:00 -t 00:00:02 {}'.format(os.path.join(ffmpeg_dir, "ffmpeg"), input_file_path, crop_file_path))
     
     print("2 - remove old output file")
     if os.path.exists(output_file_path):
