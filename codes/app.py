@@ -37,13 +37,8 @@ def transfer():
     f = request.files['input-video']
     f.save(input_file_path)
     
-    if os.path.exists(crop_file_path):
-      os.remove(crop_file_path)
-    else:
-      print("Can not delete the file as it doesn't exists")
-    
-    print("2 - resize and crop video (360p / 2 secs)")
-    os.system('ffmpeg -i input.mp4 -vf scale=360:-1 -ss 00:00:00 -t 00:00:02 crop.mp4')
+    #print("2 - resize and crop video (360p / 2 secs)")
+    #os.system('ffmpeg -i input.mp4 -vf scale=360:-1 -ss 00:00:00 -t 00:00:02 crop.mp4')
     
     print("2 - remove old output file")
     if os.path.exists(output_file_path):
@@ -52,7 +47,7 @@ def transfer():
       print("Can not delete the file as it doesn't exists")
     
     print("3: Run zooming-slow-mo")
-    output_video = zsm(crop_file_path)
+    output_video = zsm(output_file_path)
     
     print("4: Done")
     return send_file("/app/codes/" + output_video, mimetype='video/mp4')
