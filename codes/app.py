@@ -47,7 +47,7 @@ def transfer():
       print("Can not delete the file as it doesn't exists")
     
     print("3: Run zooming-slow-mo")
-    output_video = zsm(output_file_path)
+    output_video = zsm(input_file_path)
     
     print("4: Done")
     return send_file("/app/codes/" + output_video, mimetype='video/mp4')
