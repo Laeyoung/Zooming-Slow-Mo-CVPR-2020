@@ -43,7 +43,7 @@ def transfer():
       print("Can not delete the file as it doesn't exists")
     
     print("2 - resize and crop video (360p / 2 secs)")
-    os.system('ffmpeg -i {} -vf scale=360:-1 -ss 00:00:00 -t 00:00:02 {}'.format(input_file_path, crop_filename))
+    os.system('ffmpeg -i input.mp4 -vf scale=360:-1 -ss 00:00:00 -t 00:00:02 crop.mp4')
     
     print("2 - remove old output file")
     if os.path.exists(output_file_path):
