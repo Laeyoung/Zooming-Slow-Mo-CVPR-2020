@@ -3,6 +3,7 @@ from queue import Empty, Queue
 from flask_limiter import Limiter
 from video_to_zsm import zsm
 
+import os
 import io
 import numpy as np
 import cv2
