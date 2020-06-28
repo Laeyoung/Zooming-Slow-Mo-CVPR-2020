@@ -37,7 +37,10 @@ def transfer():
     f.save(input_file_path)
     
     print("3 - clean")
-    os.remove(output_file_path)
+    if os.path.exists(output_file_path):
+      os.remove(output_file_path)
+    else:
+      print("Can not delete the file as it doesn't exists")
     
     output_video = zsm(input_file_path)
     
