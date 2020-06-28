@@ -20,6 +20,8 @@ app.config['MAX_CONTENT_LENGTH'] = 1024 * 1024 * 5
 
 limiter = Limiter(app, default_limits=['1 per second'])
 
+input_file_path = "/app/codes/input.mp4"
+
 @app.route('/transfer', methods=['POST'])
 def transfer():
 
@@ -27,9 +29,10 @@ def transfer():
     return {'error': 'must have a input video file'}, 400
 
   try:
-    input_video = Image.open(request.files['base_image'].stream)
-
-    output_video = zsm(input_video)
+    f = request.files['input-video']
+    f.save(input_file_path)
+    
+    output_video = zsm(input_file_path)
 
     return send_file(output_video, mimetype='video/mp4')
   except Exception:
