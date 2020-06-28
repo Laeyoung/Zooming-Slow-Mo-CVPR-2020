@@ -10,4 +10,4 @@ bash make.sh
 
 echo '- Run app.py'
 cd /app
-python app.py
+python codes/app.py
