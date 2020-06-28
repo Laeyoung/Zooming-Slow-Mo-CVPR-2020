@@ -23,6 +23,7 @@ limiter = Limiter(app, default_limits=['1 per second'])
 
 input_file_path = "/app/codes/input.mp4"
 crop_file_path = "/app/codes/crop.mp4"
+crop_filename = "crop.mp4"
 output_file_path = "/app/codes/output.mp4"
 
 @app.route('/transfer', methods=['POST'])
@@ -36,8 +37,13 @@ def transfer():
     f = request.files['input-video']
     f.save(input_file_path)
     
+    if os.path.exists(crop_file_path):
+      os.remove(crop_file_path)
+    else:
+      print("Can not delete the file as it doesn't exists")
+    
     print("2 - resize and crop video (360p / 2 secs)")
-    os.system('ffmpeg -y -i {} -vf scale=360:-1 -ss 00:00:00 -t 00:00:02 {}'.format(input_file_path, crop_file_path))
+    os.system('ffmpeg -i {} -vf scale=360:-1 -ss 00:00:00 -t 00:00:02 {}'.format(input_file_path, crop_filename))
     
     print("2 - remove old output file")
     if os.path.exists(output_file_path):
