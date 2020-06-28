@@ -89,6 +89,8 @@ def zsm():
     rmtree(save_folder)
     rmtree(save_out_folder)
     
+    return "output.mp4"
+    
     #exit(0)
 
 #if __name__ == '__main__':
