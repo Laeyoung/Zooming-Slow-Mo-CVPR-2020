@@ -9,19 +9,18 @@ RUN apt update && \
 COPY ./pip.conf ~/.pip/pip.conf
 RUN pip install numpy opencv-python lmdb pyyaml pickle5 matplotlib seaborn
 
-# . install flask and expose 80 port
+# 4. install flask and expose 80 port
 RUN pip install flask Flask-Limiter
 EXPOSE 80
 
+# 5. download pre-trained model
 RUN mkdir /app
 WORKDIR /app
-
-# 4. download pre-trained model
 RUN wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1xeOoZclGeSI1urY6mVCcApfCqOPgxMBK' -O model.pth
 
-# 5. copy codes
+# 6. copy codes
 COPY . .
 
+# 7. set ENTRYPOINT and CMD
 ENTRYPOINT bash /app/entrypoint.sh
-
 CMD []
