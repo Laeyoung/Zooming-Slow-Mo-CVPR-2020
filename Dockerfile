@@ -22,15 +22,6 @@ RUN wget --no-check-certificate 'https://docs.google.com/uc?export=download&id=1
 # 5. copy codes
 COPY . .
 
-#ENV CUDA_HOME /usr/local/cuda-10.0
-#ENV CUDNN_INCLUDE_DIR /usr/local/cuda-10.0/include
-#ENV CUDNN_LIB_DIR /usr/local/cuda-10.0/lib64
-
-# 5. copy entrypoint.sh and set Docker ENTRYPOINT
-#COPY ./entrypoint.sh /app/
-#COPY ./app.py /app/
-#RUN chmod +x /app/entrypoint.sh && chmod +x /app/codes/app.py
-
 ENTRYPOINT bash /app/entrypoint.sh
 
 CMD []
