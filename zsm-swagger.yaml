@@ -1,0 +1,41 @@
+openapi: 3.0.1
+info:
+  title: Ainized-Zooming-Slow-Mo-CVPR-2020 
+  description: " "
+  contact:
+    name: Laeyoung Chang
+    email: laeyoung@comcom.ai
+  version: 1.0.0
+servers:
+  - url: 'https://zooming-slow-mo-laeyoung.endpoint.ainize.ai'
+paths:
+  /transfer:
+    post:
+      tags:
+      - Zooming-Slow-Mo
+      requestBody:
+        required: true
+        description: "send input video(mp4) \n \n [sample video](https://gofile.io/d/VrwTNN)"
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                input-video:
+                  type: string
+                  format: binary
+            encoding:
+              files:
+                contentType: video/mp4
+      responses:
+         '200':
+            description: success
+            content:
+              video/mp4:
+                  schema:
+                    type: string
+                    format: binary
+         '400':
+            description: Bad request (Can not load images)
+         '500':
+            description: Server Side Error
